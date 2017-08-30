@@ -1,6 +1,8 @@
 using BinDeps2
+using SHA
 
 # Define what we're downloading, where we're putting it
+src_name = "nettle"
 src_vers = "3.3"
 src_url = "https://ftp.gnu.org/gnu/nettle/nettle-$(src_vers).tar.gz"
 src_hash = "46942627d5d0ca11720fec18d81fc38f7ef837ea4197c1f630e71ce0d470b11e"
@@ -12,9 +14,11 @@ download_verify(src_url, src_hash, src_path; verbose=true)
 
 # Our build products will go into ./products
 out_path = joinpath(pwd(), "products")
-try mkpath(out_path) end
+rm(out_path; force=true, recursive=true)
+mkpath(out_path)
 
 # Build Nettle for all our platforms
+products = Dict()
 for platform in supported_platforms()
     target = platform_triplet(platform)
 
@@ -38,18 +42,29 @@ for platform in supported_platforms()
                 # We pass `--prefix=/` because BinDeps2 has already set the `$DESTDIR`
                 # environment variable, so we don't need to tell configure where to install
                 `./nettle-$(src_vers)/configure --host=$(target) --prefix=/`,
-                `make -j3`,
+                `make -j$(min(Sys.CPU_CORES + 1,8))`,
                 `make install`
             ]
 
-            dep = Dependency("nettle", [libnettle, nettlehash], steps, platform, prefix)
+            dep = Dependency(src_name, [libnettle, nettlehash], steps, platform, prefix)
             build(dep; verbose=true)
 
             # Once we're built up, go ahead and package this prefix out
-            package(prefix, joinpath(out_path, "nettle"); platform=platform, verbose=true)
+            tarball_path = package(prefix, joinpath(out_path, src_name); platform=platform, verbose=true)
+            tarball_hash = open(tarball_path, "r") do f
+                return bytes2hex(sha256(f))
+            end
+            products[target] = (basename(tarball_path), tarball_hash)
         end
     end
     
     # Finally, destroy the build_path
     rm(build_path; recursive=true)
+end
+
+# In the end, dump an informative message telling the user how to download/install these
+info("Hash/filename pariings:")
+for target in keys(products)
+    filename, hash = products[target]
+    println("    \"$(target)\" => (\"\$prefix/$(filename)\", \"$(hash)\")")
 end

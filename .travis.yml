@@ -12,7 +12,7 @@ services:
   - docker
 
 env:
-  DOCKER_IMAGE: staticfloat/julia_workerbase:centos6_9-x64
+  DOCKER_IMAGE: staticfloat/julia_workerbase:crossbuild-x64
 
 before_script:
   - docker pull $DOCKER_IMAGE

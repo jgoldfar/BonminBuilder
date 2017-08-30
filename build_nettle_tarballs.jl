@@ -66,5 +66,5 @@ end
 info("Hash/filename pariings:")
 for target in keys(products)
     filename, hash = products[target]
-    println("    \"$(target)\" => (\"\$prefix/$(filename)\", \"$(hash)\")")
+    println("    \"$(target)\" => (\"\$prefix/$(filename)\", \"$(hash)\"),")
 end

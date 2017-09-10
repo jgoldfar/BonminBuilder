@@ -1,4 +1,4 @@
-using BinDeps2
+using BinaryBuilder
 using SHA
 
 # Define what we're downloading, where we're putting it
@@ -33,8 +33,8 @@ for platform in supported_platforms()
             unpack(src_path, build_path; verbose=true)
 
             # We expect these outputs from our build steps
-            libnettle = LibraryResult(joinpath(libdir(prefix), "libnettle"))
-            nettlehash = FileResult(joinpath(bindir(prefix), "nettle-hash"))
+            libnettle = LibraryProduct(prefix, "libnettle")
+            nettlehash = ExecutableProduct(prefix, "nettle-hash")
 
             # We build using the typical autoconf incantation
             steps = [

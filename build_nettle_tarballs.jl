@@ -50,10 +50,7 @@ for platform in supported_platforms()
             build(dep; verbose=true)
 
             # Once we're built up, go ahead and package this prefix out
-            tarball_path = package(prefix, joinpath(out_path, src_name); platform=platform, verbose=true)
-            tarball_hash = open(tarball_path, "r") do f
-                return bytes2hex(sha256(f))
-            end
+            tarball_path, tarball_hash = package(prefix, joinpath(out_path, src_name); platform=platform, verbose=true)
             products[target] = (basename(tarball_path), tarball_hash)
         end
     end
@@ -63,7 +60,7 @@ for platform in supported_platforms()
 end
 
 # In the end, dump an informative message telling the user how to download/install these
-info("Hash/filename pariings:")
+info("Hash/filename pairings:")
 for target in keys(products)
     filename, hash = products[target]
     println("    :$(platform_key(target)) => (\"\$bin_prefix/$(filename)\", \"$(hash)\"),")

@@ -17,7 +17,7 @@ out_path = joinpath(pwd(), "products")
 rm(out_path; force=true, recursive=true)
 mkpath(out_path)
 
-# Build Nettle for all our platforms
+# Build for all our platforms
 products = Dict()
 for platform in supported_platforms()
     target = platform_triplet(platform)
@@ -41,7 +41,8 @@ for platform in supported_platforms()
                 # We pass `--host=$(target)` to tell configure we want to cross-compile
                 # We pass `--prefix=/` because BinDeps2 has already set the `$DESTDIR`
                 # environment variable, so we don't need to tell configure where to install
-                `./nettle-$(src_vers)/configure --host=$(target) --prefix=/`,
+                `./$(src_name)-$(src_vers)/configure --host=$(target) --prefix=/`,
+                `make clean`,
                 `make -j$(min(Sys.CPU_CORES + 1,8))`,
                 `make install`
             ]

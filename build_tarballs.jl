@@ -48,7 +48,7 @@ for platform in supported_platforms()
             ]
 
             dep = Dependency(src_name, [libnettle, nettlehash], steps, platform, prefix)
-            build(dep; verbose=true)
+            build(dep; verbose=true, autofix=true)
 
             # Once we're built up, go ahead and package this prefix out
             tarball_path, tarball_hash = package(prefix, joinpath(out_path, src_name); platform=platform, verbose=true)

@@ -20,7 +20,7 @@ mkpath(out_path)
 # Build for all our platforms
 products = Dict()
 for platform in supported_platforms()
-    target = platform_triplet(platform)
+    target = triplet(platform)
 
     # We build in a platform-specific directory
     build_path = joinpath(pwd(), "build", target)
@@ -64,5 +64,5 @@ end
 info("Hash/filename pairings:")
 for target in keys(products)
     filename, hash = products[target]
-    println("    :$(platform_key(target)) => (\"\$bin_prefix/$(filename)\", \"$(hash)\"),")
+    println("    $(platform_key(target)) => (\"\$bin_prefix/$(filename)\", \"$(hash)\"),")
 end

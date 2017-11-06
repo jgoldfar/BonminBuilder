@@ -12,6 +12,7 @@ cache:
     - downloads
 environment:
   - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+  - BINARYBUILDER_ROOTFS_DIR=rootfs
 
 # Before anything else, get the latest versions of things
 before_script:

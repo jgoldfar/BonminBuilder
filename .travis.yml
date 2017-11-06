@@ -9,7 +9,9 @@ git:
   depth: 99999999
 cache:
   directories:
-    - ~/.julia/v0.6/BinaryBuilder/deps/downloads
+    - downloads
+environment:
+  - BINARYBUILDER_DOWNLOADS_CACHE=downloads
 
 # Before anything else, get the latest versions of things
 before_script:

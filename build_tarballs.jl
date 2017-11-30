@@ -17,11 +17,10 @@ sources = [
 ]
 
 script = raw"""
-cd $WORKSPACE/srcdir
-cd nettle-3.3/
+cd $WORKSPACE/srcdir/nettle-3.3/
 ./configure --prefix=/ --host=$target
-make install -j3
-
+make -j3
+make install
 """
 
 products = prefix -> [
@@ -29,4 +28,6 @@ products = prefix -> [
   ExecutableProduct(prefix,"nettle-hash")
 ]
 
-autobuild(pwd(), "nettle", platforms, sources, script, products)
+product_hashes = Dict()
+autobuild(pwd(), "nettle", platforms, sources, script, products, product_hashes)
+print_buildjl(product_hashes)

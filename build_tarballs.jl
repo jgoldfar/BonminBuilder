@@ -28,6 +28,12 @@ products = prefix -> [
   ExecutableProduct(prefix,"nettle-hash")
 ]
 
-product_hashes = Dict()
-autobuild(pwd(), "nettle", platforms, sources, script, products, product_hashes)
-print_buildjl(product_hashes)
+# Choose which platforms to build for; if we've got an argument use that one,
+# otherwise default to just building all of them!
+build_platforms = supported_platforms()
+if length(ARGS) > 0
+    build_platforms = platform_key.(split(ARGS[1], ","))
+end
+info("Building for $(join(triplet.(build_platforms), ", "))")
+
+autobuild(pwd(), "nettle", build_platforms, sources, script, products)

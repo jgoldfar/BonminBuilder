@@ -28,6 +28,10 @@ products = prefix -> [
   ExecutableProduct(prefix,"nettle-hash")
 ]
 
+# Be quiet unless we've passed `--verbose`
+verbose = "--verbose" in ARGS
+ARGS = filter!(x -> x != "--verbose", ARGS)
+
 # Choose which platforms to build for; if we've got an argument use that one,
 # otherwise default to just building all of them!
 build_platforms = platforms
@@ -36,4 +40,4 @@ if length(ARGS) > 0
 end
 info("Building for $(join(triplet.(build_platforms), ", "))")
 
-autobuild(pwd(), "nettle", build_platforms, sources, script, products)
+autobuild(pwd(), "nettle", build_platforms, sources, script, products; verbose=verbose)

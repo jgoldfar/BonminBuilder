@@ -18,7 +18,7 @@ sources = [
 
 script = raw"""
 cd $WORKSPACE/srcdir/nettle-3.3/
-./configure --prefix=/ --host=$target
+./configure --prefix=$prefix --host=$target
 make -j3
 make install
 """

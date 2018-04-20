@@ -38,4 +38,4 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "MbedTLS", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "Nettle", sources, script, platforms, products, dependencies)

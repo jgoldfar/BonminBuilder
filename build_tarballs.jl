@@ -2,13 +2,13 @@ using BinaryBuilder
 
 # Collection of sources required to build Nettle
 sources = [
-  "https://ftp.gnu.org/gnu/nettle/nettle-3.3.tar.gz" =>
-  "46942627d5d0ca11720fec18d81fc38f7ef837ea4197c1f630e71ce0d470b11e",
+  "https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz" =>
+  "ae7a42df026550b85daca8389b6a60ba6313b0567f374392e54918588a411e94",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
-cd $WORKSPACE/srcdir/nettle-3.3/
+cd $WORKSPACE/srcdir/nettle-3.4/
 ./configure --prefix=$prefix --host=$target
 make -j${nproc}
 make install
@@ -24,7 +24,8 @@ platforms = [
   Linux(:aarch64, :glibc),
   Linux(:armv7l, :glibc),
   Linux(:powerpc64le, :glibc),
-  MacOS()
+  MacOS(),
+  FreeBSD(:x86_64),
 ]
 
 # The products that we will ensure are always built

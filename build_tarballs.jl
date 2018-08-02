@@ -1,19 +1,18 @@
 using BinaryBuilder
 
-# Collection of sources required to build Nettle
-name = "Nettle"
-version = v"3.4"
+# Collection of sources required to build Bonmin and Couenne
+name = "Bonmin-Couenne"
+version = v"0.0"
 sources = [
-    "https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz" =>
-    "ae7a42df026550b85daca8389b6a60ba6313b0567f374392e54918588a411e94",
+    "https://github.com/coin-or/Couenne/archive/releases/0.5.6.tar.gz" =>
+    "",
+    
+    "https://github.com/coin-or/Bonmin/archive/releases/1.8.6.tar.gz" =>
+    ""
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
-cd $WORKSPACE/srcdir/nettle-*/
-./configure --prefix=$prefix --host=$target
-make -j${nproc}
-make install
 """
 
 # These are the platforms we will build for by default, unless further
@@ -32,8 +31,8 @@ platforms = [
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libnettle", :libnettle),
-    ExecutableProduct(prefix, "nettle-hash", :nettle_hash)
+    ExecutableProduct(prefix, "couenne", :couenne),
+    ExecutableProduct(prefix, "bonmin", :bonmin)
 ]
 
 # Dependencies that must be installed before this package can be built

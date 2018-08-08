@@ -8,7 +8,6 @@ julia:
 
 git:
   depth: 99999999
-
 cache:
   directories:
   - downloads
@@ -28,14 +27,12 @@ script:
   - julia build_tarballs.jl
 
 deploy:
- provider: releases
- api_key:
-   # Note; this api_key is only valid for jgoldfar/BonminCouenneBuilder; you need
-   # to make your own: https://docs.travis-ci.com/user/deployment/releases/
-   secure: npqkmETRPwCcQKnfPOvIGPwIpwh6ahp8CNVVTocv8t4ep1p6VdRV7R4ox/V2E29i0X3qPf5+Fuze/FC15Qrr8j3QsK3VxCmkrMlR6F0b10iRXXQi7WBFcpEQfvXo21ronZc7a4hZGzf7dS0XJYdGzbyG8BkKrQtR+jyLsSGc/Ks0Chy02GQ3kBafRREb5WXHKRqvNBkz4gbnauuoqq3liAka1ZPtNcQnryIdt/H2j6Ak2Xj/tXX16R/5eqJNMXGYfGMOcteLb9Z2MKX6LAWGYP1UWyWKTNTQ9z8eK713nsQ3GTSjxot54euSfKQWI2gMaJW/Uq7dFxHlolHP3izCp2vrBiiPEI7PvoiXSvjLyyp+yGaR+Cv1pOK8t1IpTeijoLsTLuW/djZK1ZBlmt8q+qMBZ1mjHbAZB3UiVzJUd4tgm4xpXJ8ohYSA2A3HrZIexdyiRwBGFkx3mFqWs+WsMe42RJXYDZvfLOqEJeVfEyik1NufC0s9Hp68ivvj5KWMlIouxC1cSr+6AW8oxs4ynoCiUWzPpDCztXXks0BmYARhv6PC2ehETfBxxCB6/k8FAMXAa07ucbtaeJNCdJK4dmYFSvrYsdK3CB2Eaf8eihbrZ/MnElp64OpMJ8b9E6cg2Vk3CP9C9skIAYwPaXbNjk2ixWvN6UN8zNCrF9vKPQY=
- file_glob: true
- file: products/*
- skip_cleanup: true
- on:
-   repo: jgoldfar/BonminCouenneBuilder
-   tags: true
+  provider: releases
+  api_key:
+    secure: SZTlRMqvUcCyH+2/P58KI+yeTt+dceeue9jDCiGwz0FBSutkSuZGQn0e6tXFcW+P+T8k55PLkDThhTO94JNEnyUvQBt14oUZSws17ucmcjZV+PNd9w35FxCYj499XU6Ne024FBUKmLYPVK+pQ6tA6pJWIEMfe2j7qDzEpZ6n8Y+BK0ufDRedsHT+XcUY3xh8wy8gTrg/vV/pwtXWI4n9tdnoS58l1z56KU6bTpn5MkUryfYWnxpq6CVWZyEf3UMHaJ45H0gWdWSEZP0rWl2c30Uk8yyJ7VM4HiKXoB9ejIgrRcsVT0FW88y8kQrytZGJkFuKDaJsb1iRL/yfHZGV6plfo3CgJzKB0b1UxB/s5akBqXOtz0LX3ltGaUVsuHsa6NXjzsAoClPQ0Tao4ojemQDn6+iN2VJSlFMXWXAj6LtOQ9JyTJ4WZuN4dZX0YjZTbNH0mQIwnjZq+ORGWPiRqetOLYqL4q+antZHVgNfuwOe4uRmtGNmo/5cxgka2WnpGwE0gyHxcMr5NUT6XNZwc1rzUSmxA+RUSSp0foF9b1TBOIVvCnXp3s9Tk5L2pVgFpmqojNWr9aEn6yiTVkhRJ49RKp2HyzO6j2xdHWU1hP8FS+5e3kCb9XgLZVvbj4sT/C2RaSX5NNDqdKXaqup7/6wYcJxv9sqyORRJVIMIsDc=
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: jgoldfar/BonminBuilder
+    tags: true
